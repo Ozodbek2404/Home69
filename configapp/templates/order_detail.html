@@ -6,7 +6,7 @@
 </head>
 <body>
 {% for item in order_details%}
-<p> {{item.title}}</p>
+<p> {{item.order_id, item.product_id}}</p>
 {%endfor%}
 </body>
 </html>
