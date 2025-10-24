@@ -1,48 +1,61 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
+from .forms import *
 
 
 def index(request):
-    category = Category.objects.all()
-    product = Product.objects.all()
-    order = Order.objects.all()
-    order_details = OrderDetail.objects.all()
-    content = {
-        "category": category,
-        "product": product,
-        "order": order,
-        "order_detail": order_details
+    context = {
+        "category": Category.objects.all(),
+        "product": Product.objects.all(),
+        "order": Order.objects.all(),
+        "order_detail": OrderDetail.objects.all()
     }
-    return render(request, 'index.html', content)
+    return render(request, 'index.html', context)
 
 
 def category(request):
-    category = Category.objects.all()
-    content = {
-        "category": category
-    }
-    return render(request, 'category.html', content)
+    return render(request, 'category.html', {"category": Category.objects.all()})
 
 
 def product(request):
-    product = Product.objects.all()
-    context = {
-        "product": product
-    }
-    return render(request, 'product.html', context=context)
+    return render(request, 'product.html', {"product": Product.objects.all()})
 
 
 def order(request):
-    order = Order.objects.all()
-    content = {
-        "order": order
-    }
-    return render(request, 'order.html', content)
+    return render(request, 'order.html', {"order": Order.objects.all()})
 
 
 def order_details(request):
-    order_details = OrderDetail.objects.all()
-    content = {
-        "order_detail": order_details
-    }
-    return render(request, 'order_detail.html', content)
+    return render(request, 'order_detail.html', {"order_detail": OrderDetail.objects.all()})
+
+
+def add_category(request):
+    form = CategoryForm(request.POST or None, request.FILES or None)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('category')
+    return render(request, 'form.html', {'form': form, 'title': 'Kategoriya qo‘shish'})
+
+
+def add_product(request):
+    form = ProductForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('product')
+    return render(request, 'form.html', {'form': form, 'title': 'Mahsulot qo‘shish'})
+
+
+def add_order(request):
+    form = OrderForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('order')
+    return render(request, 'form.html', {'form': form, 'title': 'Buyurtma qo‘shish'})
+
+
+def add_order_detail(request):
+    form = OrderDetailForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('order_details')
+    return render(request, 'form.html', {'form': form, 'title': 'Buyurtma tafsiloti qo‘shish'})

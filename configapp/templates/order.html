@@ -11,13 +11,18 @@
     {% for item in order %}
 
     <div class="card" style="width: 18rem;">
-        <img src="https://picsum.photos/id/1/199/301" class="card-img-top" alt="...">
-        <div class="card-body">
-            <h5 class="card-title">{{ item.customer_id }}</h5>
-            <p class="card-text">{{ item.order_date }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+    {% if item.picture %}
+        <img src="{{ item.picture.url }}" class="card-img-top" alt="{{ item.customer_id }}">
+    {% else %}
+        <img src="https://picsum.photos/id/1/199/301" class="card-img-top" alt="default image">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">Customer: {{ item.customer_id }}</h5>
+        <p class="card-text">Order Date: {{ item.order_date }}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
     </div>
+</div>
+
 
     {%endfor%}
 
