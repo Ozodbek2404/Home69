@@ -12,9 +12,9 @@
 
     <div class="card" style="width: 18rem;">
     {% if item.picture %}
-        <img src="{{ item.picture.url }}" class="card-img-top" alt="{{ item.category_name }}">
+        <img src="{{ item.picture.url }}" class="card-img-top" alt="{{ item.description }}">
     {% else %}
-        <img src="https://picsum.photos/id/1/199/301" class="card-img-top" alt="default image">
+        <img src="https://picsum.photos/id/237/200/300" class="card-img-top" alt="default image">
     {% endif %}
     <div class="card-body">
         <h5 class="card-title">{{ item.category_name }}</h5>

@@ -40,9 +40,11 @@
                     <td>{{ c.category_name }}</td>
                     <td>{{ c.description|default:"-" }}</td>
                     <td>
-                        {% if c.picture %}
-                        <img src="{{ c.picture.url }}" width="60">
-                        {% else %}-{% endif %}
+                       {% if item.picture %}
+                        <img src="{{ item.picture.url }}" class="card-img-top" alt="{{ item.description }}">
+                       {% else %}
+                        <img src="https://picsum.photos/id/237/200/300" class="card-img-top" alt="default image">
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
