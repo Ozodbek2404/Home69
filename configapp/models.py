@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Category(models.Model):
+    objects = None
     category_name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     picture = models.ImageField(upload_to='categories/', blank=True, null=True)
@@ -11,6 +12,7 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    objects = None
     product_name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -21,6 +23,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
+    objects = None
     customer_id = models.CharField(max_length=50)
     order_date = models.DateField()
     required_date = models.DateField()
@@ -31,6 +34,7 @@ class Order(models.Model):
 
 
 class OrderDetail(models.Model):
+    objects = None
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='details')
     product = models.ForeignKey( Product, on_delete=models.CASCADE, related_name='order_details')
     unit_price = models.DecimalField(max_digits=10, decimal_places=2)
