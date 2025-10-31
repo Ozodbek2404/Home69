@@ -85,8 +85,6 @@ def delete_order_detail(request, id):
     return redirect('index')
 
 
-# UPDATE FUNCTIONS
-
 def update_category(request, id):
     category = get_object_or_404(Category, id=id)
     form = CategoryForm(request.POST or None, request.FILES or None, instance=category)
