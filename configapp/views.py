@@ -83,3 +83,41 @@ def delete_order_detail(request, id):
     detail = get_object_or_404(OrderDetail, id=id)
     detail.delete()
     return redirect('index')
+
+
+# UPDATE FUNCTIONS
+
+def update_category(request, id):
+    category = get_object_or_404(Category, id=id)
+    form = CategoryForm(request.POST or None, request.FILES or None, instance=category)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('category')
+    return render(request, 'form.html', {'form': form, 'title': 'Kategoriya tahrirlash'})
+
+
+def update_product(request, id):
+    product = get_object_or_404(Product, id=id)
+    form = ProductForm(request.POST or None, instance=product)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('product')
+    return render(request, 'form.html', {'form': form, 'title': 'Mahsulot tahrirlash'})
+
+
+def update_order(request, id):
+    order = get_object_or_404(Order, id=id)
+    form = OrderForm(request.POST or None, instance=order)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('order')
+    return render(request, 'form.html', {'form': form, 'title': 'Buyurtma tahrirlash'})
+
+
+def update_order_detail(request, id):
+    detail = get_object_or_404(OrderDetail, id=id)
+    form = OrderDetailForm(request.POST, instance=detail)
+    if request.method == 'POST' and form.is_valid():
+        form.save()
+        return redirect('order_details')
+    return render(request, 'form.html', {'form': form, 'title': 'Buyurtma tafsilotini tahrirlash'})
